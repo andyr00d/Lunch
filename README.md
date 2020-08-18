@@ -6,8 +6,8 @@ Simple Node.js application wrapped inside a cron job which uses <a href="https:/
 
 Dependencies:
 ```javascript
-instatouch
-node-cron
+npm install instatouch
+npm install node-cron
 ```
 Usage:
 ```sh
