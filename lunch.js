@@ -5,13 +5,13 @@ const cron = require("node-cron");
 
 cron.schedule("50 11 * * mon,tue,wed,thu,fri", function(){
 
-fs.readdir('./restorenorthbridge', (err, files) => { 
+fs.readdir('./temp', (err, files) => { 
   if (err) throw err;
 
   //remove all files which exist in the directory
   for (const file of files) {
       console.log(file);
-    fs.unlink(path.join('./restorenorthbridge', file), err => {
+    fs.unlink(path.join('./temp', file), err => {
       if (err) throw err;
     });
   }
@@ -20,17 +20,18 @@ fs.readdir('./restorenorthbridge', (err, files) => {
 //Get the latest post from the instagram account
 (async () => {
     try {
+        const account = "XXX"; //account name, without the preceeding @
         const options = { count: 1, mediaType: 'image', download: true, filepath: './', filename: 'image.jpeg'};
-        const user = await instaTouch.user('restorenorthbridge', options);
+        const user = await instaTouch.user(account, options);
         console.log(user.collector[0].thumbnail_src);
 
         //get the (only) file which exists in the directory
-        fs.readdir('./restorenorthbridge', (err, files) => { 
+        fs.readdir('./temp', (err, files) => { 
             if (err) throw err;
           
             for (const file of files) {
                 console.log(file);
-                var imagePath = path.join(__dirname, './restorenorthbridge/' + file);
+                var imagePath = path.join(__dirname, './temp/' + file);
 
                 var nodemailer = require('nodemailer');
 
